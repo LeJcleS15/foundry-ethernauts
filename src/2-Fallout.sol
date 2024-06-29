@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
+// Objective: Claim ownership of the contract
+
 contract Fallout {
     mapping(address => uint256) allocations;
     address payable public owner;

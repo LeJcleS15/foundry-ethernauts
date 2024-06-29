@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./base/Level-06.sol";
-import "./Fallout.sol";
+import "./2-Fallout.sol";
 
 contract FalloutFactory is Level {
     function createInstance(
@@ -17,7 +17,7 @@ contract FalloutFactory is Level {
     function validateInstance(
         address payable _instance,
         address _player
-    ) public override returns (bool) {
+    ) public view override returns (bool) {
         Fallout instance = Fallout(_instance);
         return instance.owner() == _player;
     }
