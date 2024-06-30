@@ -12,13 +12,13 @@ contract FalloutSolution is Script {
         address publicKey = vm.envAddress("PUBLIC_KEY");
 
         FalloutFactory falloutFact = new FalloutFactory();
-        address payable instanceAddress = payable(
-            falloutFact.createInstance(publicKey)
-        );
-
         // address payable instanceAddress = payable(
-        //     0x365B4ae473CdFabf4a2752ebe2E285ADCc3eD382
+        //     falloutFact.createInstance(publicKey)
         // );
+
+        address payable instanceAddress = payable(
+            0x9f933b2F39B7D4ED86Bc729a26619a29264f1d70
+        );
 
         falloutLevel = Fallout(instanceAddress);
         console.log("Initial Owner: %s", falloutLevel.owner());
