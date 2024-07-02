@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+// Objective: The goal of this level is for you to steal all the funds from the contract.
+
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
 contract Reentrance {
