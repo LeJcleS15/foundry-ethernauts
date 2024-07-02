@@ -18,7 +18,6 @@ contract VaultSolution is Script {
         console.log("Balance before attack: %s", instanceAddress.balance);
 
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
-        // Password is in clear on the block explorer
         Attacker attacker = new Attacker(kingLevel);
         attacker.attack{value: kingLevel.prize()}();
         vm.stopBroadcast();

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./base/Level.sol";
-import "./Privacy.sol";
+import "./12-Privacy.sol";
 
 contract PrivacyFactory is Level {
     function createInstance(address) public payable override returns (address) {
@@ -15,7 +15,10 @@ contract PrivacyFactory is Level {
         return address(instance);
     }
 
-    function validateInstance(address payable _instance, address) public view override returns (bool) {
+    function validateInstance(
+        address payable _instance,
+        address
+    ) public view override returns (bool) {
         Privacy instance = Privacy(_instance);
         return instance.locked() == false;
     }
