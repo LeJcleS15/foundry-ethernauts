@@ -19,10 +19,7 @@ contract ReentranceSolution is Script {
             "Balance of Level before attack: %s",
             instanceAddress.balance
         );
-        console.log(
-            "My balance before attack: %s",
-            address(vm.envAddress("PUBLIC_KEY")).balance
-        );
+        console.log("My balance before attack: %s", publicKey.balance);
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
 
         Attacker attacker = new Attacker(reentranceLevel);
@@ -43,10 +40,7 @@ contract ReentranceSolution is Script {
             "Balance of Attacker after attack: %s",
             address(attacker).balance
         );
-        console.log(
-            "My balance after attack: %s",
-            address(vm.envAddress("PUBLIC_KEY")).balance
-        );
+        console.log("My balance after attack: %s", publicKey.balance);
 
         validate();
     }

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import {Script, console} from "forge-std/Script.sol";
 
 interface Building {
     function isLastFloor(uint256) external returns (bool);
