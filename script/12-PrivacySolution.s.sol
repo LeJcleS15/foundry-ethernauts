@@ -10,7 +10,6 @@ contract PrivacySolution is Script {
     address payable instanceAddress =
         payable(0x1f97711151827742820DC94D8334F5156554091F);
     address public publicKey = vm.envAddress("PUBLIC_KEY");
-    uint256 public constant VALUE_TO_DRAIN = 0.001 ether;
 
     function run() external {
         reentranceLevel = Privacy(instanceAddress);
@@ -32,5 +31,3 @@ contract PrivacySolution is Script {
         console.log("Challenge Completed: %s", isValidated);
     }
 }
-
-contract Attacker {}
