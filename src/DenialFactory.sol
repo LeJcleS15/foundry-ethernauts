@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./base/Level.sol";
-import "./Denial.sol";
+import "./20-Denial.sol";
 
 contract DenialFactory is Level {
     uint256 public initialDeposit = 0.001 ether;
