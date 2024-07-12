@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./base/Level.sol";
-import "./Shop.sol";
+import "./21-Shop.sol";
 
 contract ShopFactory is Level {
     function createInstance(address _player) public payable override returns (address) {
