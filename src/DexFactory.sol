@@ -3,28 +3,16 @@
 pragma solidity ^0.8.0;
 
 import "./base/Level.sol";
-import "./Dex.sol";
+import "./22-Dex.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract DexFactory is Level {
-    function createInstance(
-        address _player
-    ) public payable override returns (address) {
+    function createInstance(address _player) public payable override returns (address) {
         Dex instance = new Dex();
         address instanceAddress = address(instance);
 
-        SwappableToken tokenInstance = new SwappableToken(
-            instanceAddress,
-            "Token 1",
-            "TKN1",
-            110
-        );
-        SwappableToken tokenInstanceTwo = new SwappableToken(
-            instanceAddress,
-            "Token 2",
-            "TKN2",
-            110
-        );
+        SwappableToken tokenInstance = new SwappableToken(instanceAddress, "Token 1", "TKN1", 110);
+        SwappableToken tokenInstanceTwo = new SwappableToken(instanceAddress, "Token 2", "TKN2", 110);
 
         address tokenInstanceAddress = address(tokenInstance);
         address tokenInstanceTwoAddress = address(tokenInstanceTwo);
@@ -43,14 +31,9 @@ contract DexFactory is Level {
         return instanceAddress;
     }
 
-    function validateInstance(
-        address payable _instance,
-        address
-    ) public view override returns (bool) {
+    function validateInstance(address payable _instance, address) public view override returns (bool) {
         address token1 = Dex(_instance).token1();
         address token2 = Dex(_instance).token2();
-        return
-            IERC20(token1).balanceOf(_instance) == 0 ||
-            ERC20(token2).balanceOf(_instance) == 0;
+        return IERC20(token1).balanceOf(_instance) == 0 || ERC20(token2).balanceOf(_instance) == 0;
     }
 }
